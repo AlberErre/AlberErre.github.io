@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
 * {
 	margin: 0;
 	padding: 0;
@@ -11,14 +13,26 @@
 	background-image: linear-gradient(180deg, rgb(167, 219, 251), rgb(247, 218, 171));
 }
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+.namecontainer{
+	width: 100%;
+	margin-top: 4vw;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;  
+}
 
-.intense{
-  font-family: 'Montserrat', sans-serif;
-  margin-top: 4vw;
-  font-size: 3vw;
-  line-height: 1.3;
-  font-weight: 300;
-  color: #fff;
-  position: relative;
+.title{
+  font-weight: 500;
+  color: white;
+  font-size: 4vw;
+  text-align:center;
+  line-height:90px;
+}
+
+.subtitle{
+  font-size: 1.5vw;
+  font-weight: 100;
+  text-align:center;
+  color: white;
 }
