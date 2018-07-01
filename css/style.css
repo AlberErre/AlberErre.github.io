@@ -1,0 +1,24 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#world {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-image: linear-gradient(180deg, rgb(167, 219, 251), rgb(247, 218, 171));
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+.intense{
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 4vw;
+  font-size: 3vw;
+  line-height: 1.3;
+  font-weight: 300;
+  color: #fff;
+  position: relative;
+}
