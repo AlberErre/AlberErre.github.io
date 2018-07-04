@@ -10,6 +10,14 @@
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+	background: linear-gradient(#251770, #29e9ff);
+}
+
+#world2 {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 	background-image: linear-gradient(180deg, rgb(167, 219, 251), rgb(247, 218, 171));
 }
 
