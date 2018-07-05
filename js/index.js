@@ -1,6 +1,3 @@
-//based off "The Aviator" tutorial on CoDrops (https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs),the BOYBOY! game, and the Mobile Suit Gundam anime.
-
-//COLORS
 var Colors = {
     red:0xf25346,
     white:0xd8d0d1,
@@ -8,26 +5,19 @@ var Colors = {
     brown:0x59332e,
     brownDark:0x23190f,
     blue:0x68c3c0,
-
     grey: 0x3a3a3a,
     yellow: 0xecd900,
     offWhite: 0xf0f0f0,
     brightBlue: 0x007fe3,
     black: 0x000000,
-    burgundy: 0xd51002,
+    coolyellow: 0xFFBF00,
 };
 
-// THREEJS RELATED VARIABLES
-
 var scene,
-    camera, fieldOfView, aspectRatio, nearGundam, farGundam,
+    camera, fieldOfView, aspectRatio, nearObject, farObject,
     renderer, container;
 
-//SCREEN VARIABLES
-
 var HEIGHT, WIDTH;
-
-//INIT THREE JS, SCREEN AND MOUSE EVENTS
 
 function createScene() {
 
@@ -37,13 +27,13 @@ function createScene() {
   scene = new THREE.Scene();
   aspectRatio = WIDTH / HEIGHT;
   fieldOfView = 60;
-  nearGundam = 1;
-  farGundam = 10000;
+  nearObject = 100;
+  farObject = 10000;
   camera = new THREE.PerspectiveCamera(
     fieldOfView,
     aspectRatio,
-    nearGundam,
-    farGundam
+    nearObject,
+    farObject
     );
   scene.fog = new THREE.Fog(0xf7d9aa, 100,950);
   camera.position.x = 0;
@@ -97,17 +87,17 @@ function createLights() {
   scene.add(ambientLight);
 }
 
-var AirGundam = function(){
+var MagicCube = function(){
   this.mesh = new THREE.Object3D();
-  this.mesh.name = "airGundam";
+  this.mesh.name = "MagicCube";
 
   var geomBody = new THREE.BoxGeometry(75,75,75,1,1,1);
   var matBody = new THREE.MeshPhongMaterial({color:Colors.white, shading:THREE.FlatShading});
 
-  var gundambody = new THREE.Mesh(geomBody, matBody);
-  gundambody.castShadow = true;
-  gundambody.receiveShadow = true;
-  this.mesh.add(gundambody);
+  var geomBody = new THREE.Mesh(geomBody, matBody);
+  geomBody.castShadow = true;
+  geomBody.receiveShadow = true;
+  this.mesh.add(geomBody);
 
   var geomREye = new THREE.BoxGeometry(5,5,5,1,1,1);
   var matREye = new THREE.MeshPhongMaterial({color:Colors.black, shading:THREE.FlatShading});
@@ -126,14 +116,14 @@ var AirGundam = function(){
   this.mesh.add(lEye);
 
   var geomPropeller = new THREE.BoxGeometry(40,50,8,1,1,1);
-  var matPropeller = new THREE.MeshPhongMaterial({color:Colors.brightBlue, shading:THREE.FlatShading});
+  var matPropeller = new THREE.MeshPhongMaterial({color:Colors.coolyellow, shading:THREE.FlatShading});
   this.propeller = new THREE.Mesh(geomPropeller, matPropeller);
 
   this.propeller.castShadow = true;
   this.propeller.receiveShadow = true;
 
   var geomBlade = new THREE.CylinderGeometry(1,15,80,4,1,false);
-  var matBlade = new THREE.MeshPhongMaterial({color:Colors.brightBlue, shading:THREE.FlatShading});
+  var matBlade = new THREE.MeshPhongMaterial({color:Colors.coolyellow, shading:THREE.FlatShading});
   var blade1 = new THREE.Mesh(geomBlade, matBlade);
   blade1.position.set(-5,0,5);
   blade1.rotation.z = .7;
@@ -177,7 +167,7 @@ var AirGundam = function(){
 
   var frontLegGeom = new THREE.TorusGeometry(15, 3, 16, 50, 3 );
 
-  var frontLegMat = new THREE.MeshPhongMaterial({color:Colors.brownDark, shading:THREE.FlatShading});
+  var frontLegMat = new THREE.MeshPhongMaterial({color:Colors.black, shading:THREE.FlatShading});
   var frontLeg = new THREE.Mesh(frontLegGeom,frontLegMat);
   frontLeg.position.set(25,-50,25);
   frontLeg.rotation.z = -1.5;
@@ -186,7 +176,7 @@ var AirGundam = function(){
 
   var backLegGeom = new THREE.TorusGeometry(15, 3, 16, 50, 3 );
 
-  var backLegMat = new THREE.MeshPhongMaterial({color:Colors.brownDark, shading:THREE.FlatShading});
+  var backLegMat = new THREE.MeshPhongMaterial({color:Colors.black, shading:THREE.FlatShading});
   var backLeg = new THREE.Mesh(backLegGeom,backLegMat);
   backLeg.position.set(-35,-38,-20);
   backLeg.rotation.z = -2.9;
@@ -226,7 +216,7 @@ Sky = function(){
   }
 }
 
-Planet = function(){
+Earth = function(){
   var geom = new THREE.CylinderGeometry(600,600,800,40,10);
   geom.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
   geom.mergeVertices();
@@ -255,7 +245,7 @@ Planet = function(){
 
 }
 
-Planet.prototype.moveGround = function (){
+Earth.prototype.moveGround = function (){
   var verts = this.mesh.geometry.vertices;
   var l = verts.length;
   for (var i=0; i<l; i++){
@@ -266,7 +256,7 @@ Planet.prototype.moveGround = function (){
     vprops.ang += vprops.speed;
   }
   this.mesh.geometry.verticesNeedUpdate=true;
-  planet.mesh.rotation.z += .005;
+  earth.mesh.rotation.z += .005;
 }
 
 Cloud = function(){
@@ -294,21 +284,20 @@ Cloud = function(){
   }
 }
 
-// 3D Models
-var planet;
-var airgundam;
+var earth;
+var flyingCube;
 
-function createGundam(){
-  airgundam = new AirGundam();
-  airgundam.mesh.scale.set(.25,.25,.25);
-  airgundam.mesh.position.y = 100;
-  scene.add(airgundam.mesh);
+function createFlyingCube(){
+  flyingCube = new MagicCube();
+  flyingCube.mesh.scale.set(.25,.25,.25);
+  flyingCube.mesh.position.y = 100;
+  scene.add(flyingCube.mesh);
 }
 
-function createPlanet(){
-  planet = new Planet();
-  planet.mesh.position.y = -600;
-  scene.add(planet.mesh);
+function createEarth(){
+  earth = new Earth();
+  earth.mesh.position.y = -600;
+  scene.add(earth.mesh);
 }
 
 function createSky(){
@@ -318,21 +307,21 @@ function createSky(){
 }
 
 function loop(){
-  updateGundam();
+  updateFlyingCube();
   updateCameraFov();
-  planet.moveGround();
+  earth.moveGround();
   sky.mesh.rotation.z += .01;
   renderer.render(scene, camera);
   requestAnimationFrame(loop);
 }
 
-function updateGundam(){
+function updateFlyingCube(){
   var targetY = normalize(mousePos.y,-.75,.75,25, 175);
   var targetX = normalize(mousePos.x,-.75,.75,-100, 100);
-  airgundam.mesh.position.y += (targetY-airgundam.mesh.position.y)*0.1;
-  airgundam.mesh.rotation.z = (targetY-airgundam.mesh.position.y)*0.0128;
-  airgundam.mesh.rotation.x = (airgundam.mesh.position.y-targetY)*0.0064;
-  airgundam.propeller.rotation.x += 0.25;
+  flyingCube.mesh.position.y += (targetY-flyingCube.mesh.position.y)*0.1;
+  flyingCube.mesh.rotation.z = (targetY-flyingCube.mesh.position.y)*0.0128;
+  flyingCube.mesh.rotation.x = (flyingCube.mesh.position.y-targetY)*0.0064;
+  flyingCube.propeller.rotation.x += 0.25;
 }
 
 function updateCameraFov(){
@@ -353,8 +342,8 @@ function init(event){
   document.addEventListener('mousemove', handleMouseMove, false);
   createScene();
   createLights();
-  createGundam();
-  createPlanet();
+  createFlyingCube();
+  createEarth();
   createSky();
   loop();
 }
