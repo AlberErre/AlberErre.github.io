@@ -22,7 +22,8 @@
 
       TLPcontract.showLastMessage(function (error, result) {
       if(!error) {
-        lastMessage = result.c[0];
+        lastMessage = result[2];
+        console.log(lastMessage);
             resolve(lastMessage);
           }
       else {
@@ -62,11 +63,12 @@
     startTLPspeaker();
 
     // Jquery
-    $("#messageTarget").html(_getMessage());
+    $("#messageTarget").html("Cargando mensaje...");
 
-    // Refrescar el valor cada segundo (usando la Jquery)
+    // Refrescar el valor cada segundo usando setInterval en la Jquery
     setInterval(function() {
-      $("#messageTarget").html(_getMessage());
+      _getMessage();
+      $("#messageTarget").html(lastMessage);
     }, 1000);  
 
   })
