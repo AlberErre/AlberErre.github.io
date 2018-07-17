@@ -34,23 +34,6 @@
     });
   }
 
-  function _addMessage() {
-
-    // falta meter el evento para que lea del input
-    // inputText = bla bla bla (event)
-
-    return new Promise (function (resolve, reject) {
-      TLPcontract.addMessage(inputText, function (error, result) {
-      if(!error) {
-            resolve(result);
-          }
-      else {
-          reject(error);
-        }
-      })
-    });
-  }
-
   //remember to load this file as a server, not as a file (web3 has problems with this)
   window.addEventListener('load', function () {
 
@@ -62,7 +45,7 @@
 
     startTLPspeaker();
 
-    // Jquery
+    // Jquery para leer ultimo mensaje
     $("#messageTarget").html("Cargando mensaje...");
 
     // Refrescar el valor cada segundo usando setInterval en la Jquery
@@ -71,8 +54,10 @@
       $("#messageTarget").html(lastMessage);
     }, 1000);  
 
+    // Jquery para enviar info al blockchain (Click al button)
+    $("#trigger").click(function() {
+            TLPcontract.addMessage( $("#inputText").val() );
+        });
+
   })
-
-
-
 
