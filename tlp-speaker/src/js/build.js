@@ -56,7 +56,14 @@
 
     // Jquery para enviar info al blockchain (Click al button)
     $("#trigger").click(function() {
-            TLPcontract.addMessage( $("#inputText").val() );
+            TLPcontract.addMessage($("#inputText").val(), function (error, result) {
+              if(!error) {
+                console.log("Mensaje enviado al blockchain!");
+                return true;
+              } else {
+                console.log("Algo ha fallado al enviar el mensaje");
+              }
+            });
         });
 
   })
