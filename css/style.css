@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-
 * {
 	margin: 0;
 	padding: 0;
@@ -20,15 +18,7 @@ code {
 	background: linear-gradient(#251770, #29e9ff);
 }
 
-#world2 {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background-image: linear-gradient(180deg, rgb(167, 219, 251), rgb(247, 218, 171));
-}
-
-.namecontainer{
+.nameContainer {
 	width: 100%;
 	margin-top: 4vw;
 	margin: auto;
@@ -37,7 +27,7 @@ code {
 	align-items: center;  
 }
 
-.title{
+.title {
   color: white;
   font-size: 4vw;
   font-weight: 500;
@@ -45,15 +35,26 @@ code {
   line-height:90px;
 }
 
-.subtitle{
+.subtitle {
   font-size: 1.5vw;
   font-weight: 100;
   text-align:center;
 }
 
+.iconContainer {
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.socialIcon {
+  margin: 10px;
+}
+
 /* On screens that are 600px or less */
 @media screen and (max-width: 900px) {
-	.title{
+	.title {
 	  color: white;
 	  font-size: 35px;
 	  font-weight: 500;
@@ -61,7 +62,7 @@ code {
 	  line-height:90px;
 	}
 
-	.subtitle{
+	.subtitle {
 	  font-size: 14px;
 	  font-weight: 100;
 	  text-align:center;
