@@ -117,4 +117,8 @@ code {
 	  font-weight: 100;
 	  text-align:center;
 	}
+
+	.proj {
+		height: 70px;
+	}
 }
