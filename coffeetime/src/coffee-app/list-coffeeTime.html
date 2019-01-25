@@ -1,0 +1,180 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="list-coffeetime">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+      
+      .innerText {
+        font-size: 1.5em;
+        background: #ecb879;
+        color: black;
+      }
+      
+      .itemContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 33vw;
+        padding: 20px;
+        font-family: 'Indie Flower';
+      }
+      
+      .wrapContainer {
+        display: flex;
+        flex-wrap: wrap;
+      }
+        
+      .deleteButtonStyling {
+        max-height: 30px;
+        min-width: 15vw;
+        background: #ecb879;
+        color: white;
+        font-family: 'Indie Flower';
+        font-size: 1.2em;
+        font-weight: 600;
+        text-transform: lowercase;
+      }
+      
+      .bottomButton {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .emptyMessage {
+        text-align: center;
+        font-family: 'Indie Flower';
+        font-size: 1.5em;
+        width: 100%;
+        text-align: center;
+        margin-top: 20vh;
+      }
+      
+    </style>
+    
+    <div class="wrapContainer">
+      <dom-repeat items="{{coffeeList}}" as="coffeeListItem">
+        <template>
+          <div class="card bottomButton">   
+            <div class="itemContainer">
+                <h1 class="circle innerText">
+                  [[coffeeListItem.hour]]
+                </h1>
+                <h1>
+                  [[coffeeListItem.name]]
+                </h1>
+            </div>
+            <paper-button raised="" class="deleteButtonStyling" on-click="deleteCoffeListItem">
+                Delete
+            </paper-button>
+          </div>
+
+        </template>
+      </dom-repeat>
+
+      <dom-if if="{{emptyList}}">
+        <template>
+          <div class="emptyMessage">
+            Looks like there are no coffees on the list...
+          </div>
+        </template>
+      </dom-if>
+      
+    </div>
+    
+  </template>
+
+  <script>class ListCoffeeTime extends Polymer.Element {
+  static get is() {
+    return 'list-coffeetime';
+  }
+
+  static get properties() {
+    return {
+      coffeeList: {
+        type: Array,
+        value: true,
+        notify: true
+      },
+      emptyList: {
+        type: Boolean,
+        notify: true
+      },
+      firebaseDatabase: {
+        type: Object,
+        notify: true,
+        observer: "getCoffeesFromFirebase"
+      }
+    };
+  }
+
+  getCoffeesFromFirebase() {
+    if (typeof this.firebaseDatabase != "undefined" && Object.keys(this.firebaseDatabase).length !== 0) {
+      this.firebaseDatabase.ref("CoffeTimeList").on("child_added", snapshot => {
+        let data = snapshot.val();
+        this.push("coffeeList", data);
+      });
+    }
+  }
+
+  checkIfListIsEmpty() {
+    if (this.coffeeList && this.coffeeList.length == 0) {
+      this.emptyList = true;
+    } else {
+      this.emptyList = false;
+    }
+  }
+
+  deleteAllCoffeList() {
+    this.coffeeList = [];
+  }
+
+  deleteCoffeListItem(event) {
+    let idToRemove = event.model.__data.coffeeListItem.id;
+    this.coffeeList.map((element, index) => {
+      if (idToRemove == element.id) {
+        this.splice("coffeeList", index, 1);
+        this.deleteCoffeeFromFirebase(idToRemove);
+      }
+    });
+    this.checkIfListIsEmpty();
+  }
+
+  deleteCoffeeFromFirebase(idToRemove) {
+    console.log("Entra!");
+
+    if (typeof this.firebaseDatabase != "undefined" && Object.keys(this.firebaseDatabase).length !== 0) {
+      this.firebaseDatabase.ref("CoffeTimeList").on('value', data => {
+        data.forEach((firebaseElement, index) => {
+          if (idToRemove == firebaseElement.val().id) {
+            let firebaseElementToDelete = firebaseElement.key;
+            this.firebaseDatabase.ref("CoffeTimeList").child(firebaseElementToDelete).remove();
+          }
+        });
+      });
+    }
+  }
+
+}
+
+window.customElements.define(ListCoffeeTime.is, ListCoffeeTime);</script>
+</dom-module>

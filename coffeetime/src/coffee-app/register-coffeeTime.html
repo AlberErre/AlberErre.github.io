@@ -1,0 +1,143 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="register-coffeetime">
+  <template>
+    <style include="shared-styles">
+      :host {
+        --paper-input-container-focus-color: #ecb879;
+        display: block;
+        padding: 10px;
+      }
+      
+      .registerContainer {
+        max-width: 60vw;
+        margin: auto;
+      }
+      
+      .formContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+      }
+      
+      .indieText {
+        font-family: 'Indie Flower';
+      }
+      
+      .buttonStyling {
+        max-height: 50px;
+        min-width: 15vw;
+        background: #ecb879;
+        color: white;
+        font-family: 'Indie Flower';
+        font-size: 1.2em;
+        font-weight: 600;
+        text-transform: lowercase;
+      }
+      
+      .inputsDimensions {
+        min-width: 35vw;
+      }
+
+      paper-toast {
+        font-family: 'Indie Flower';
+        font-size: 1.2em;
+      }
+      
+    </style>
+
+    <div class="card registerContainer">
+      <h1 class="indieText">Register your coffe time here!</h1>
+      
+      <div class="formContainer">
+        
+        <div class="inputsDimensions">
+          <paper-input id="coffeeNameInput" placeholder="Your name..." value="{{coffeeName}}"></paper-input>
+          <paper-input id="coffeeTimeInput" placeholder="Your hour..." value="{{coffeeHour}}"></paper-input>  
+        </div>
+        
+        <paper-button raised="" class="buttonStyling" on-click="addCoffeeToList">
+          Add Time
+        </paper-button>
+
+        <paper-toast id="coffeeRegisterPopUp"></paper-toast>
+
+      </div>
+
+    </div>
+  </template>
+  
+  <script>class RegisterCoffeeTime extends Polymer.Element {
+  static get is() {
+    return 'register-coffeetime';
+  }
+
+  static get properties() {
+    return {
+      coffeeList: {
+        type: Array,
+        notify: true
+      },
+      coffeeName: {
+        type: String,
+        value: "",
+        notify: true
+      },
+      coffeeHour: {
+        type: String,
+        value: "",
+        notify: true
+      },
+      emptyList: {
+        type: Boolean,
+        notify: true
+      },
+      firebaseDatabase: {
+        type: Object,
+        notify: true
+      }
+    };
+  }
+
+  addCoffeeToList() {
+    if (this.coffeeHour && this.coffeeName) {
+      let rawCoffeId = new Date().getTime();
+      let coffeTime = {
+        id: "" + rawCoffeId + this.coffeeHour + this.coffeeName,
+        hour: this.coffeeHour,
+        name: this.coffeeName
+      }; //this.push("coffeeList", coffeTime);
+
+      this.firebaseDatabase.ref("CoffeTimeList").push(coffeTime);
+      this.$.coffeeRegisterPopUp.text = "Coffee has been registered!";
+      this.$.coffeeRegisterPopUp.open(); //this.$.coffeeRegisterPopUp.show();
+
+      this.clearInputFields();
+      this.emptyList = false;
+    }
+  }
+
+  clearInputFields() {
+    this.$.coffeeNameInput.value = "";
+    this.$.coffeeTimeInput.value = "";
+  }
+
+}
+
+window.customElements.define(RegisterCoffeeTime.is, RegisterCoffeeTime);</script>
+</dom-module>

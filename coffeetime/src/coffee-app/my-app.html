@@ -1,0 +1,274 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!-- init dependencies --><link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="my-icons.html">
+
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+
+<link rel="import" href="list-coffeeTime.html">
+<link rel="import" href="register-coffeeTime.html">
+<link rel="lazy-import" href="my-view404.html">
+
+<!-- paper elements -->
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+
+<!-- font awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+<!-- icons -->
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+
+<dom-module id="my-app">
+  <link rel="import" type="css" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <template>
+    <style include="shared-styles">
+      :host {
+        --app-primary-color:#ecb879;
+        --app-secondary-color: black;
+
+        display: block;
+        padding: 10px;
+        user-select: none;
+      }
+      
+      :host::before {
+        opacity: 0!important;
+      }
+            
+      app-drawer-layout {
+        background: url(http://www.graphicartsunit.com/images/noise.png);
+      }
+      
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
+
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+      }
+
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+      
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: var(--app-secondary-color);
+        line-height: 40px;
+      }
+
+      .drawer-list a.iron-selected {
+        color: black;
+        font-weight: bold;
+      }
+            
+      .footerButtonsContainer {
+        position: fixed;
+        bottom: 5%;
+        right: 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      }
+      
+      .footerButtonsItem {
+        display: flex;
+        text-align: center;
+        border-radius: 6px;
+        width: 30px;
+        margin: 10px;
+        background-color: var(--app-primary-color);
+        color: #eeeeee!important;
+        box-shadow: 0 1rem 1rem -1rem rgba(10,10,10,.2);
+      }
+                
+      app-toolbar {
+        display: flex;
+        justify-content: center;
+      }
+      
+      app-header {
+        border-bottom-left-radius: 30%;
+        border-bottom-right-radius: 30%;
+      }
+      
+      app-header::before {
+        box-shadow: none!important;
+      }
+      
+      .headerText {
+        font-size: 1.8em;
+      }
+      
+      .topBodyContainer {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      
+      .indieText {
+        font-family: 'Indie Flower';
+      }
+                      
+    </style>
+
+    <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
+    </app-location>
+
+    <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
+    </app-route>
+      
+    <app-drawer-layout fullbleed="" narrow="{{narrow}}">
+                
+      <!-- Main content -->
+      <app-header-layout has-scrolling-region="">
+        
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <div class="footerButtonsContainer">
+            <a class="footerButtonsItem" name="list-coffeetime" href="[[rootPath]]list-coffeetime"><i class="fas fa-coffee"></i></a>
+            <a class="footerButtonsItem" name="register-coffeetime" href="[[rootPath]]register-coffeetime"><i class="fas fa-plus"></i></a>
+          </div>
+        </iron-selector>
+            
+        <app-header slot="header" condenses="" reveals="" effects="waterfall">
+          <app-toolbar>
+            <div class="indieText headerText">
+              Coffee Time
+            </div>
+          </app-toolbar>
+        </app-header>
+        
+        <div class="topBodyContainer indieText">
+            Are you up for a coffee? 
+            <span style="font-size: 2em;">☕️</span>
+        </div>
+
+        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="my-view404" role="main">
+          
+          <list-coffeetime name="list-coffeetime" coffee-list="{{coffeeList}}" empty-list="{{emptyList}}" firebase-database="{{firebaseDatabase}}">
+          </list-coffeetime>
+        
+          <register-coffeetime name="register-coffeetime" coffee-list="{{coffeeList}}" empty-list="{{emptyList}}" firebase-database="{{firebaseDatabase}}">
+          </register-coffeetime>
+
+          <my-view404 name="my-view404"></my-view404>
+        </iron-pages>
+        
+      </app-header-layout>
+    </app-drawer-layout>
+    
+  </template>
+
+  <script>// Gesture events like tap and track generated from touch will not be
+// preventable, allowing for better scrolling performance.
+Polymer.setPassiveTouchGestures(true);
+
+class MyApp extends Polymer.Element {
+  static get is() {
+    return 'my-app';
+  }
+
+  static get properties() {
+    return {
+      coffeeList: {
+        type: Array,
+        value: () => [],
+        notify: true
+      },
+      firebaseDatabase: {
+        type: Object,
+        value: {},
+        notify: true
+      },
+      emptyList: {
+        type: Boolean,
+        value: true,
+        notify: true
+      },
+      page: {
+        type: String,
+        reflectToAttribute: true,
+        observer: '_pageChanged'
+      },
+      routeData: {
+        type: Object
+      },
+      subroute: Object,
+      // This shouldn't be neccessary, but the Analyzer isn't picking up
+      // Polymer.Element#rootPath
+      rootPath: String
+    };
+  }
+
+  static get observers() {
+    return ['_routePageChanged(routeData.page)'];
+  }
+
+  ready() {
+    super.ready(); // Initialize Firebase
+
+    var config = {
+      apiKey: "AIzaSyBo0aeAoa5asDarMjB7-9XEDLsjDcQNeD8",
+      authDomain: "coffeetime-app-684e2.firebaseapp.com",
+      databaseURL: "https://coffeetime-app-684e2.firebaseio.com",
+      projectId: "coffeetime-app-684e2",
+      storageBucket: "coffeetime-app-684e2.appspot.com",
+      messagingSenderId: "201272635284"
+    };
+    firebase.initializeApp(config);
+    const reference = "CoffeTimeList";
+    const db = firebase.database();
+    this.firebaseDatabase = db;
+  }
+
+  _routePageChanged(page) {
+    // If no page was found in the route data, page will be an empty string.
+    // Default to 'view1' in that case.
+    this.page = page || 'list-coffeetime';
+  }
+
+  _pageChanged(page) {
+    // Load page import on demand. Show 404 page if fails
+    const resolvedPageUrl = this.resolveUrl(page + '.html');
+    Polymer.importHref(resolvedPageUrl, null, this._showPage404.bind(this), true);
+  }
+
+  _showPage404() {
+    this.page = 'my-view404';
+  }
+
+}
+
+window.customElements.define(MyApp.is, MyApp);</script>
+</dom-module>
