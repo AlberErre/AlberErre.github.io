@@ -108,6 +108,11 @@ code {
 	color: #303030;
 }
 
+.projIcon {
+	position: relative;
+	left: -12px;
+}
+
 .eth::before {
 	width: 18px;
 	content: "ETH";
@@ -142,6 +147,11 @@ code {
 
 	.proj {
 		height: 60px;
+	}
+
+	.projIcon {
+		position: relative;
+		left: -10px;
 	}
 
 	.eth::before {
