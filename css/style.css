@@ -108,6 +108,21 @@ code {
 	color: #303030;
 }
 
+.eth::before {
+	width: 18px;
+	content: "ETH";
+	font-size: 0.3em;
+	text-align: center;
+	border-radius: 8px;
+	padding-right: 5px;
+	padding-left: 5px;
+	position: relative;
+	top: -40px;
+	left: -4vw;
+	color: white;
+	background-color: #303030;
+	z-index: 100;
+}
 
 /* On screens that are 600px or less */
 @media screen and (max-width: 900px) {
@@ -127,5 +142,15 @@ code {
 
 	.proj {
 		height: 60px;
+	}
+
+	.eth::before {
+		font-size: 0.2em;
+		border-radius: 8px;
+		padding-right: 4px;
+		padding-left: 4px;
+		top: -30px;
+		left: -4vw;
+		z-index: 100;
 	}
 }
