@@ -13,6 +13,13 @@ html,
 body {
   height: 100%;
 }
+@media screen and (max-width: 410px) {
+  html,
+  body {
+    margin-top: 30px;
+    height: auto;
+  }
+}
 h1,
 h2,
 h3,
@@ -137,5 +144,19 @@ a:hover {
   }
   100% {
     opacity: 1;
+  }
+}
+#mobile-nav {
+  display: none;
+}
+@media screen and (max-width: 410px) {
+  #mobile-nav {
+    display: block;
+  }
+  #mobile-nav > li {
+    list-style: none;
+  }
+  .buffer-header {
+    margin-bottom: 0;
   }
 }
