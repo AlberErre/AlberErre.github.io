@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Alber Erre</title>
+    <link href="./css/index.css" rel="stylesheet" />
+    <link href="./css/about.css" rel="stylesheet" />
+    <link href="./css/portfolio.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-122322275-1"
+    ></script>
+  </head>
+  <body>
+    <div class="mainWrapper">
+      <div class="about homeContainer">
+        <ul id="vertical-nav">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./portfolio.html">Experiments</a></li>
+          <li>
+            <a href="./assets/cv-albererre.pdf" target="_blank">Resume</a>
+          </li>
+        </ul>
+
+        <h2 class="buffer-header">
+          Hello 👋
+          <span id="timeHello"></span>
+        </h2>
+
+        <p class="justify buffer-small">
+          I'm a Front End developer with background in economics. I enjoy
+          building scalable applications with detail on UI/UX, keeping in mind
+          that intutive human interactions and code efficiency go hand by hand.
+          Currently using React, Redux & TypeScript.
+        </p>
+        <h3>Skills</h3>
+        <ul class="skills buffer-small">
+          <li>
+            <img
+              src="./images/skills/react.svg"
+              class="icon"
+              alt="React.JS"
+              title="React.JS"
+            />
+          </li>
+          <li>
+            <img
+              src="./images/skills/redux.svg"
+              class="icon"
+              alt="Redux.JS"
+              title="Redux.JS"
+            />
+          </li>
+          <li>
+            <img
+              src="./images/skills/javascript.svg"
+              class="icon"
+              alt="JavaScript"
+              title="JavaScript"
+            />
+          </li>
+          <li>
+            <img
+              src="./images/skills/typescript.svg"
+              class="icon"
+              alt="TypeScript"
+              title="TypeScript"
+            />
+          </li>
+          <li>
+            <img
+              src="./images/skills/html5.svg"
+              class="icon"
+              alt="HTML5"
+              title="HTML5"
+            />
+          </li>
+          <li>
+            <img
+              src="./images/skills/css3.svg"
+              class="icon"
+              alt="CSS3"
+              title="CSS3"
+            />
+          </li>
+          <li>
+            <img
+              src="./images/skills/git.svg"
+              class="icon"
+              alt="Git"
+              title="Git"
+            />
+          </li>
+        </ul>
+
+        <h3>Experience</h3>
+        <ul class="buffer-small">
+          <li>
+            <strong>Codeoscopic</strong> — JUN 2019 - Present<br />Senior Front
+            End Developer
+          </li>
+          <li>
+            <strong>BBVA</strong> — JAN 2019 - MAY 2019<br />Front End Developer
+          </li>
+          <li>
+            <strong>Open Source</strong> — JUN 2018 - DEC 2018<br />Front End
+            Developer
+          </li>
+          <li>
+            <strong>Optimanova Solutions</strong> — MAR 2018 - MAY 2018<br />Front
+            End Developer
+          </li>
+          <li>
+            <strong>PriceWaterhouseCoopers (PwC)</strong> — AUG 2017 - MAR
+            2018<br />Front End Developer / Data Scientist
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      var today = new Date();
+      var curHr = today.getHours();
+
+      if (curHr < 12) {
+        window.document.getElementById("timeHello").innerHTML =
+          ", Good morning ☀️";
+      } else if (curHr < 18) {
+        window.document.getElementById("timeHello").innerHTML =
+          ", Good afternoon 🌤️";
+      } else {
+        window.document.getElementById("timeHello").innerHTML =
+          ", Good night 🌛";
+      }
+    </script>
+  </body>
+</html>
