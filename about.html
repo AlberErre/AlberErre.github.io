@@ -127,13 +127,11 @@
       </div>
     </div>
     <script>
-      var today = new Date();
-      var curHr = today.getHours();
-
-      if (curHr < 12) {
+      var currentHour = new Date().getHours();
+      if (currentHour < 12) {
         window.document.getElementById("timeHello").innerHTML =
           ", Good morning ☀️";
-      } else if (curHr < 18) {
+      } else if (currentHour < 18) {
         window.document.getElementById("timeHello").innerHTML =
           ", Good afternoon 🌤️";
       } else {
