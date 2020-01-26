@@ -1,4 +1,5 @@
 * {
+  font-family: Bitter !important;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir",
@@ -125,6 +126,13 @@ a:hover {
 .socialIcon {
   margin: 6px;
 }
+.nav a.rainbow {
+  text-decoration: none !important;
+}
+.nav a.rainbow span {
+  text-decoration: underline;
+}
+
 @keyframes fadeIn {
   to {
     opacity: 1;

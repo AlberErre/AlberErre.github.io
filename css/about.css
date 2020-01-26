@@ -1,6 +1,12 @@
 .about {
   width: 40%;
 }
+.experience {
+  list-style: none;
+}
+.experience > li {
+  margin-bottom: 1em;
+}
 .skills {
   list-style: none;
   width: 35%;

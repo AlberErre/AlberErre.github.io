@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-122322275-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-122322275-1");
+    </script>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta
@@ -12,10 +24,10 @@
     <link href="./css/about.css" rel="stylesheet" />
     <link href="./css/portfolio.css" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-122322275-1"
-    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Bitter&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="mainWrapper">
@@ -24,13 +36,14 @@
           ><img src="./images/avatar.png" class="avatar" alt="Avatar"
         /></a>
         <h1>Alber Erre</h1>
-        <p>FrontEnd Developer</p>
+        <p>FrontEnd Developer 👨🏻‍💻</p>
         <ul class="nav">
-          <li><a href="./about.html">About</a></li>
-          <li><a href="./portfolio.html">Experiments</a></li>
           <li>
-            <a href="./assets/cv-albererre.pdf" target="_blank">Resume</a>
+            <a class="rainbow" href="./portfolio.html"
+              ><span>Experiments</span> 🌈</a
+            >
           </li>
+          <li><a href="./about.html">About</a></li>
         </ul>
         <div class="iconContainer">
           <a
