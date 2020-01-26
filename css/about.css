@@ -44,6 +44,7 @@
   }
 }
 #vertical-nav {
+  text-align: right;
   position: fixed;
   top: 3em;
   right: 5em;
