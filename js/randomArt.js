@@ -54,16 +54,9 @@ class Art {
   }
 }
 
-function centerCanvas(canvas) {
-  let extraMargin = 116;
-  let x = (windowWidth - width) / 2;
-  let y = (windowHeight - height) / 2 - extraMargin;
-  canvas.position(x, y);
-}
-
 function setup() {
   const canvas = createCanvas(228, 228);
-  centerCanvas(canvas);
+  canvas.parent("canvasHolder");
   frameRate(100);
   art = new Art();
 }
