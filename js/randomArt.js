@@ -66,6 +66,15 @@ function draw() {
   art.getNewCoords();
   art.render();
   stroke("white");
-  strokeWeight(15);
-  circle(width / 2, height / 2, 1);
+  strokeWeight(0);
+  const diamondX = width / 2 - 14.375;
+  const diamondY = height / 2 - 12.5;
+  beginShape(TRIANGLE_FAN);
+  vertex(diamondX + 14.375, diamondY + 12.5);
+  vertex(diamondX + 14.375, diamondY + 3.75);
+  vertex(diamondX + 23, diamondY + 12.5);
+  vertex(diamondX + 14.375, diamondY + 21.25);
+  vertex(diamondX + 5.5, diamondY + 12.5);
+  vertex(diamondX + 14.375, diamondY + 3.75);
+  endShape();
 }
